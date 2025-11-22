@@ -266,18 +266,54 @@ elif menu_option == "Phân loại xe":
     # -------------------------------
     # 2. Nhập dữ liệu từ người dùng
     # -------------------------------
+    def format_number(n):
+        return f"{n:,}"   # → 1,500,000
+
+    def parse_number(s):
+        return int(s.replace(",", "")) if s.strip() else 0
+
+
+    # ===============================
+    # Tự động định dạng Price
+    # ===============================
+    def format_price():
+        raw = st.session_state.price_raw
+        num = parse_number(raw)
+        st.session_state.price_raw = format_number(num)
+        st.session_state.price = num
+
+    # ===============================
+    # Tự động định dạng Mileage
+    # ===============================
+    def format_mileage():
+        raw = st.session_state.mileage_raw
+        num = parse_number(raw)
+        st.session_state.mileage_raw = format_number(num)
+        st.session_state.mileage = num
+
+
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        price = st.number_input("Giá xe (VND)", min_value=0, step=1_000_000)
+        st.text_input(
+            "Giá xe (VND)",
+            key="price_raw",
+            value="0",
+            on_change=format_price
+        )
+        price = st.session_state.get("price", 0)
 
     with col2:
-        year = st.number_input("Năm đăng ký xe", min_value=0, step=1)
+        year = st.number_input("Năm đăng ký xe", min_value=1990, max_value=2030, step=1)
 
     with col3:
-        mileage = st.number_input("Số km đã đi", min_value=0, step=1_000)
-    
-
+        st.text_input(
+            "Số km đã đi",
+            key="mileage_raw",
+            value="0",
+            on_change=format_mileage
+        )
+        mileage = st.session_state.get("mileage", 0)
     # -------------------------------
     # 3. Dự đoán phân cụm
     # -------------------------------
@@ -307,9 +343,10 @@ elif menu_option == "Phân loại xe":
         # --------------------------------
         st.subheader("📌 Thông tin xe đã nhập:")
         st.write(pd.DataFrame({
-            "Giá xe (VND)": [price],
+            "Giá xe (VND)": [format_number(price)],
             "Năm đăng ký xe": [year],
-            "Số km đã đi": [mileage],
+            "Số km đã đi": [format_number(mileage)],
             "Cụm dự đoán": [cluster_id]
         }))
+
 
