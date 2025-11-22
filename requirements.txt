@@ -7,4 +7,5 @@ scikit-learn
 gensim
 pyvi
 regex
-pickle
+
+
