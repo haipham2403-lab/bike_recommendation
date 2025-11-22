@@ -47,7 +47,7 @@ if menu_option == "Trang chủ":
     Chúng tôi thực hiện đồ án với mục tiêu xây dựng hệ thống:
     <ul>
         <li>Gợi ý các mẫu xe máy tương tự dựa trên nội dung tin đăng.</li>
-        <li>Phân khúc thị trường xe máy dựa trên giá, đời xe, km sử dụng và thương hiệu.</li>
+        <li>Phân khúc thị trường xe máy dựa trên giá, đời xe, km sử dụng.</li>
     </ul>
     </p>
     """, unsafe_allow_html=True)
@@ -67,8 +67,9 @@ elif menu_option == "Giới thiệu":
     Thị trường xe máy cũ trên các nền tảng trực tuyến như Chợ Tốt có số lượng tin đăng rất lớn, đa dạng theo giá, thương hiệu, đời xe và tình trạng sử dụng. Điều này tạo ra hai nhu cầu quan trọng:
     </p>
     <ol style="font-size:16px; line-height:1.6;">
-        <li><b>Gợi ý xe tương tự:</b> Giúp người dùng nhanh chóng tìm các xe có đặc điểm tương đồng.</li>
-        <li><b>Phân khúc thị trường xe máy:</b> Nhóm các mẫu xe thành từng phân khúc dựa trên giá, đời xe, km sử dụng và thương hiệu, hỗ trợ phân tích thị trường.</li>
+        <li><b>Gợi ý xe tương tự:</b> Giúp người dùng nhanh chóng tìm các xe có đặc điểm tương đồng. Để thực hiện được việc này nhóm đã sử dụng, nhóm kỹ thuật xử lý ngôn ngữ tự nhiên (TF-IDF, Gensim) để tính mức độ giống nhau giữa các tin đăng.</li>
+        <li><b>Phân khúc thị trường xe máy:</b> Nhóm các mẫu xe thành từng phân khúc dựa trên giá, đời xe, km sử dụng, hỗ trợ người dùng đánh giá được xe thuộc phân khúc nào, hỗ trợ phân tích thị trường. Sau khi đánh giá các thuật toán, nhóm lựa chọn sử dụng thuật toán phân cụm truyền thống KMeans cho kết quả tốt nhất để thực hiện phân nhóm.
+</li>
     </ol>
     </div>
     """, unsafe_allow_html=True)
@@ -348,5 +349,6 @@ elif menu_option == "Phân loại xe":
             "Số km đã đi": [format_number(mileage)],
             "Cụm dự đoán": [cluster_id]
         }))
+
 
 
